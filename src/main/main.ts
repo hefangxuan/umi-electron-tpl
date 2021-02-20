@@ -1,5 +1,5 @@
 import { app, BrowserWindow, protocol, screen } from 'electron';
-import createProtocol from '../lib/umi-plugin-electron-builder/createProtocol';
+import createProtocol from '../../lib/umi-plugin-electron-builder/createProtocol';
 
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
@@ -24,6 +24,7 @@ protocol.registerSchemesAsPrivileged([
 
 function createMotionWindow() {
   motionWindow = new BrowserWindow({
+    title: appName,
     frame: false,
     width: 470,
     height: 280,
@@ -33,7 +34,7 @@ function createMotionWindow() {
     },
     show: true,
     movable: false, // motion window do not movable
-    skipTaskbar: false,
+    skipTaskbar: true,
     maximizable: false,
     minimizable: false,
     closable: false,
