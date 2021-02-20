@@ -26,5 +26,5 @@ export default defineConfig({
   routes,
 
   // 引入插件
-  plugins: [path.join(__dirname, '../src/lib')],
+  plugins: [path.join(__dirname, '../src/lib/umi-plugin-electron-builder')],
 });

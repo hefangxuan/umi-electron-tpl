@@ -1,5 +1,5 @@
 import { app, BrowserWindow, protocol } from 'electron';
-import createProtocol from '../lib/createProtocol';
+import createProtocol from '../lib/umi-plugin-electron-builder/createProtocol';
 import { appName } from '../../electronBuilader';
 import { isDevelopment } from '../utils/common';
 // import installExtension, {
