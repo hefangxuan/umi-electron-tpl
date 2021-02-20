@@ -4,6 +4,7 @@ import { routes } from './route';
 import path from 'path';
 
 export default defineConfig({
+  devtool: 'eval',
   electronBuilder,
   layout: {
     name: 'Ant Design Pro',
@@ -27,4 +28,15 @@ export default defineConfig({
 
   // 引入插件
   plugins: [path.join(__dirname, '../src/lib/umi-plugin-electron-builder')],
+
+  dynamicImport: {
+    loading: '@/components/Loading',
+  },
+
+  copy: [
+    {
+      from: 'loading/loading.html',
+      to: 'loading/loading.html',
+    },
+  ],
 });

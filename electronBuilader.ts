@@ -4,14 +4,7 @@ import { resolve } from 'path';
 
 const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
-// 应用id
-export const appId = 'com.test.test';
-
-// 应用名称
-export const appName = '测试的系统';
-
-// 应用版本号
-export const appVersion = '0.0.2';
+const { appName, version: appVersion, appId } = require('./package.json');
 
 export const electronBuilder = {
   // 默认主进程目录
@@ -33,8 +26,9 @@ export const electronBuilder = {
   mainWebpackConfig(config: Configuration) {
     // eslint-disable-next-line no-param-reassign
     config.mode = env;
+    config.node = { __dirname: false, __filename: false };
     // eslint-disable-next-line no-param-reassign
-    config.devtool = env === 'production' ? undefined : 'cheap-module-source-map';
+    config.devtool = env === 'production' ? undefined : 'source-map';
     // eslint-disable-next-line no-param-reassign
     config.resolve!.alias = {
       '@main': resolve(__dirname, 'src/main'),
@@ -91,3 +85,5 @@ export const electronBuilder = {
     // ],
   },
 };
+
+export { appId, appName, appVersion };

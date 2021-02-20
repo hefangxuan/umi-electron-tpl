@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "author": "app",
   "description": "这里介绍软件",
+  "appName": "测试软件1",
+  "appId": "com.test.test",
   "private": true,
   "scripts": {
     "start": "umi dev",

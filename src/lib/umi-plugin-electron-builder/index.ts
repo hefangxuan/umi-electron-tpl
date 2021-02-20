@@ -407,7 +407,6 @@ async function startMainDevWatch(api: IApi, hmrServer: HmrServer) {
   const mainConfig = await getMainConfig(api, false);
   //修改dev模式下主进程编译目录为src/.umi/main
   mainConfig.output!.path = path.join(api.paths.absTmpPath!, 'main');
-
   //自定义主进程配置
   mainWebpackConfig(mainConfig);
 
