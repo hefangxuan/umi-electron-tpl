@@ -1,6 +1,7 @@
 import { defineConfig } from 'umi';
 import { appName, electronBuilder } from '../electronBuilader';
 import { routes } from './route';
+import path from 'path';
 
 export default defineConfig({
   electronBuilder,
@@ -23,4 +24,7 @@ export default defineConfig({
     type: 'none',
   },
   routes,
+
+  // 引入插件
+  plugins: [path.join(__dirname, '../src/lib')],
 });
