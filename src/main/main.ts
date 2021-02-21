@@ -37,6 +37,7 @@ function createMotionWindow() {
     transparent: true,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
     },
     show: true,
     movable: false, // motion window do not movable
@@ -76,8 +77,9 @@ function createWindow() {
     fullscreen: false,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
       // webviewTag: true,
-      enableRemoteModule: true,
+      // enableRemoteModule: true,
       // preload: path.join(process.cwd(), 'src/main/preload.js')
     },
     show: false,
@@ -91,8 +93,9 @@ function createWindow() {
   createMotionWindow();
 
   if (isDevEnv) {
-    mainWindow.loadURL(`http://localhost:${process.env.PORT}`).then();
-    mainWindow.webContents.openDevTools();
+    mainWindow.loadURL(`http://localhost:${process.env.PORT}`).then(() => {
+      if (!process.env.IS_TEST) mainWindow.webContents.openDevTools();
+    });
   } else {
     createProtocol('app');
     mainWindow.loadURL('app://./index.html').then();
