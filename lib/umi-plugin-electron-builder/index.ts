@@ -7,7 +7,6 @@ import {
   getCommonEnv,
   logError,
   logProcess,
-  logProcessErrorOutput,
 } from 'electron-webpack/out/dev/devUtil';
 import { HmrServer } from 'electron-webpack/out/electron-main-hmr/HmrServer';
 import chalk from 'chalk';
@@ -415,7 +414,7 @@ async function startMainDevWatch(api: IApi, hmrServer: HmrServer) {
     const compiler: Compiler = webpack(mainConfig);
 
     const printCompilingMessage = new DelayedFunction(() => {
-      logProcess('Main', 'Compiling...', chalk.yellow);
+      logProcess('Main', 'Compiling...', chalk.yellowBright);
     });
     compiler.hooks.compile.tap('electron-webpack-dev-runner', () => {
       hmrServer.beforeCompile();
@@ -444,7 +443,7 @@ async function startMainDevWatch(api: IApi, hmrServer: HmrServer) {
         stats.toString({
           colors: true,
         }),
-        chalk.yellow,
+        chalk.yellowBright,
       );
 
       if (resolve != null) {
@@ -492,7 +491,7 @@ async function getMainConfig(api: IApi, production: boolean) {
       },
 
       warn: (message: string) => {
-        logProcess('Main', message, chalk.yellow);
+        logProcess('Main', message, chalk.yellowBright);
       },
 
       error: (message: string) => {
@@ -536,10 +535,21 @@ function startElectron(electronArgs: Array<string>, env: any) {
       queuedData = null;
     }
 
-    logProcess('Electron', data, chalk.blue);
+    logProcess('Electron', data, chalk.blueBright);
   });
 
-  logProcessErrorOutput('Electron', electronProcess);
+  // 监听错误诶之
+  electronProcess.stderr.on('data', (data) => {
+    data = data.toString();
+    if (data.indexOf('NSPopoverTouchBarItemButton') !== -1) return;
+
+    let color = chalk.redBright;
+
+    if (data.indexOf('Debugger listening on ws') !== -1) {
+      color = chalk.greenBright;
+    }
+    logProcess('Electron', data, color);
+  });
 
   electronProcess.on('close', (exitCode) => {
     debug(`Electron exited with exit code ${exitCode}`);
