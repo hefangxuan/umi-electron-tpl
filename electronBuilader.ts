@@ -25,10 +25,10 @@ export const electronBuilder = {
   // 主进程webpack配置
   mainWebpackConfig(config: Configuration) {
     // eslint-disable-next-line no-param-reassign
-    config.mode = env;
+    // config.mode = env;
     config.node = { __dirname: false, __filename: false };
     // eslint-disable-next-line no-param-reassign
-    config.devtool = env === 'production' ? undefined : 'source-map';
+    // config.devtool = env === 'production' ? undefined : 'source-map';
     // eslint-disable-next-line no-param-reassign
     config.resolve!.alias = {
       '@main': resolve(__dirname, 'src/main'),
