@@ -2,7 +2,7 @@ import type { Configuration } from 'webpack';
 
 import { resolve } from 'path';
 
-const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+// const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
 const { appName, version: appVersion, appId } = require('./package.json');
 
