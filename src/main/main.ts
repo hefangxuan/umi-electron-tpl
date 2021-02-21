@@ -20,7 +20,7 @@ if (isDevEnv) {
 let mainWindow: BrowserWindow;
 
 // loading窗口
-let motionWindow: BrowserWindow;
+let motionWindow: BrowserWindow | null;
 
 // 自定义协议,主窗口
 protocol.registerSchemesAsPrivileged([
@@ -48,11 +48,11 @@ function createMotionWindow() {
 
   if (isDevEnv) {
     motionWindow
-      .loadURL(`file://${path.join(process.cwd(), 'loading/loading.html')}`)
+      .loadURL(`file://${path.join(process.cwd(), 'files/loading/loading.html')}`)
       .catch((e) => console.log('加载文件错误: ', e));
   } else {
     motionWindow
-      .loadURL(`file://${path.join(__dirname, 'loading/loading.html')}`)
+      .loadURL(`file://${path.join(__dirname, 'files/loading/loading.html')}`)
       .catch((e) => console.log('加载文件错误: ', e));
   }
 }
@@ -92,6 +92,7 @@ function createWindow() {
 
   if (isDevEnv) {
     mainWindow.loadURL(`http://localhost:${process.env.PORT}`).then();
+    mainWindow.webContents.openDevTools();
   } else {
     createProtocol('app');
     mainWindow.loadURL('app://./index.html').then();
@@ -105,6 +106,7 @@ function createWindow() {
       if (motionWindow) {
         motionWindow.setOpacity(0);
         motionWindow.destroy();
+        motionWindow = null;
         mainWindow.show();
         mainWindow.maximize();
       }

@@ -170,7 +170,7 @@
   <div id="appVersion" class="version">V1.0.0</div>
 </div>
 <script>
-  const pkg = require('../package.json');
+  const pkg = require('../../package.json');
   document.getElementById('appVersion').innerHTML = 'V' + pkg.version;
   document.getElementById('title').innerHTML = pkg.appName;
   document.title = pkg.appName
