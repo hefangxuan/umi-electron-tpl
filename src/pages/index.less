@@ -20,6 +20,8 @@
 
 .home p {
   margin: 0;
+  padding: 0;
+  line-height: 1.23;
 }
 
 /* box ------------------------------------------------------ */
@@ -46,11 +48,27 @@
 
 #flash {
   display: inline-block;
-  text-shadow: #bbb 0 0 1px, #fff 0 -1px 2px, #fff 0 -3px 2px, rgba(55, 187, 238, 0.1) 0 30px 25px;
+  text-shadow: #d70000 0 0 1px, #ee4444 0 -1px 2px, #e76868 0 -3px 2px;
   transition: margin-left 0.3s cubic-bezier(0, 1, 0, 1);
 }
 
-#box:hover #flash {
+/* flashlight-b ------------------------------------------------------ */
+
+#flashlight-b {
+  color: transparent;
+  outline: none;
+  perspective: 80px;
+}
+
+/* flash-b ------------------------------------------------------ */
+
+#flash-b {
+  text-shadow: rgba(43, 54, 64, 0.7) 0 0 4px;
+  transform: scaleY(-1);
+}
+
+#box:hover #flash,
+#box:hover #flash-b {
   margin-left: 20px;
   transition: margin-left 1s cubic-bezier(0, 0.75, 0, 1);
 }

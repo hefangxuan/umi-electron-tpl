@@ -3,6 +3,7 @@ import Lottie from 'react-lottie';
 import './index.less';
 
 import animationData from '@/assets/lf20_mdbdc5l7.json';
+import { appName } from '../../electronBuilader';
 
 export default function IndexPage() {
   const defaultOptions = {
@@ -25,7 +26,10 @@ export default function IndexPage() {
         />
         <div id="box">
           <p id="flashlight">
-            <span id="flash">UMI-ELECTRON-TPl</span>
+            <div id="flash">{appName}</div>
+          </p>
+          <p id="flashlight-b">
+            <div id="flash-b">{appName}</div>
           </p>
         </div>
       </div>
