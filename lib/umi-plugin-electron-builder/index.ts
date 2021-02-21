@@ -541,7 +541,13 @@ function startElectron(electronArgs: Array<string>, env: any) {
   // 监听错误诶之
   electronProcess.stderr.on('data', (data) => {
     data = data.toString();
-    if (data.indexOf('NSPopoverTouchBarItemButton') !== -1) return;
+    if (
+      // 排除打开开发者工具栏,鼠标点击会出发警告信息
+      data.indexOf('NSPopoverTouchBarItemButton') !== -1 ||
+      // 排除加载react开发者工具会出现的警告信息
+      data.indexOf('minimum_chrome_version') !== -1
+    )
+      return;
 
     let color = chalk.redBright;
 
