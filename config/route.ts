@@ -1,6 +1,4 @@
-import type { IBestAFSRoute } from '@@/plugin-layout/layout/types';
-
-export const routes: IBestAFSRoute[] = [
+export const routes: any[] = [
   {
     path: '/',
     component: '@/pages/index',
@@ -31,9 +29,5 @@ export const routes: IBestAFSRoute[] = [
       // 子项往上提，仍旧展示,
       // flatMenu: true,
     },
-  },
-  {
-    path: '/2',
-    component: '@/pages/index2',
   },
 ];
