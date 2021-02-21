@@ -94,7 +94,7 @@ function createWindow() {
 
   if (isDevEnv) {
     mainWindow.loadURL(`http://localhost:${process.env.PORT}`).then(() => {
-      if (!process.env.IS_TEST) mainWindow.webContents.openDevTools();
+      // if (!process.env.IS_TEST) mainWindow.webContents.openDevTools();
     });
   } else {
     createProtocol('app');
