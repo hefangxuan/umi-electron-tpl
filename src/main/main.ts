@@ -15,13 +15,19 @@ if (isDevEnv) {
   const dotenv = require('dotenv');
   dotenv.config();
 }
+
+// 主窗口
 let mainWindow: BrowserWindow;
+
+// loading窗口
 let motionWindow: BrowserWindow;
 
+// 自定义协议,主窗口
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } },
 ]);
 
+// loading窗口
 function createMotionWindow() {
   motionWindow = new BrowserWindow({
     title: appName,
@@ -51,6 +57,7 @@ function createMotionWindow() {
   }
 }
 
+// 主窗口
 function createWindow() {
   if (mainWindow) return;
 
@@ -80,6 +87,7 @@ function createWindow() {
   // 隐藏默认菜单
   mainWindow.setMenuBarVisibility(false);
 
+  // 创建loading窗口
   createMotionWindow();
 
   if (isDevEnv) {
@@ -89,6 +97,7 @@ function createWindow() {
     mainWindow.loadURL('app://./index.html').then();
   }
 
+  // 监听主窗口完成
   mainWindow.on('ready-to-show', function () {
     // mainWindow.setOpacity(0);
     setTimeout(() => {
@@ -103,6 +112,7 @@ function createWindow() {
   });
 }
 
+// 监听软件运行
 app.on('ready', async () => {
   if (isDevEnv) {
     installExtension(REACT_DEVELOPER_TOOLS).then();
@@ -111,12 +121,14 @@ app.on('ready', async () => {
   createWindow();
 });
 
+// 监听软件关闭
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
+// 监听软件获取焦点
 app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
