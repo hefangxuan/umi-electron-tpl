@@ -27,15 +27,10 @@ export function createWindow() {
     autoHideMenuBar: false,
     title: appName,
     backgroundColor: '#fff',
-    // transparent: !isMac,
-    // frame: isMac,
     fullscreen: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      // webviewTag: true,
-      // enableRemoteModule: true,
-      // preload: path.join(process.cwd(), 'src/main/preload.js')
     },
     show: false,
   };

@@ -3,8 +3,7 @@
  * https://umijs.org/zh-CN/docs/runtime-config
  */
 import React from 'react';
-import { history } from 'umi';
-import { ConfigProvider, message } from 'antd';
+import { ConfigProvider } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 
 // 覆写 render
