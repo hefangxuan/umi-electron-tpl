@@ -35,6 +35,16 @@ export const electronBuilder = {
     };
   },
 
+  // 过滤 Electron 发出的log信息, 通过返回 true 或 false 来决定是否输出 false不输出
+  isLogProcess(data: string) {
+    // 排除打开开发者工具栏,鼠标点击会出发警告信息
+    const is1 = data.indexOf('NSPopoverTouchBarItemButton') !== -1;
+    // 排除加载react开发者工具会出现的警告信息
+    const is2 = data.indexOf('minimum_chrome_version') !== -1;
+
+    return !(is1 || is2);
+  },
+
   // 打包配置
   builderOptions: {
     // 软件名称

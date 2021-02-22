@@ -38,6 +38,9 @@ interface ElectronBuilder {
   rendererTarget: 'electron-renderer' | 'web';
   //主进程webpack配置
   mainWebpackConfig: (config: Configuration) => void;
+
+  // Electron 动态配置log是否输出
+  isLogProcess?: (data: string) => boolean;
 }
 
 export default function (api: IApi) {
@@ -139,6 +142,7 @@ export default function (api: IApi) {
         routerMode: 'hash',
         rendererTarget: 'electron-renderer',
         mainWebpackConfig: () => {},
+        isLogProcess: () => {},
       },
       schema(joi) {
         return joi.object({
@@ -149,6 +153,7 @@ export default function (api: IApi) {
           routerMode: joi.string(),
           rendererTarget: joi.string(),
           mainWebpackConfig: joi.func(),
+          isLogProcess: joi.func(),
         });
       },
     },
@@ -364,7 +369,7 @@ async function runInDevMode(api: IApi) {
   // Pass remaining arguments to the application. Remove 3 instead of 2, to remove the `dev` argument as well.
   args.push(...process.argv.slice(3));
   // we should start only when both start and main are started
-  startElectron(args, env);
+  startElectron(api, args, env);
 }
 
 /**
@@ -508,7 +513,7 @@ async function getMainConfig(api: IApi, production: boolean) {
  * @param electronArgs
  * @param env
  */
-function startElectron(electronArgs: Array<string>, env: any) {
+function startElectron(api: IApi, electronArgs: Array<string>, env: any) {
   const electronProcess = spawn(require('electron').toString(), electronArgs, {
     env: {
       ...env,
@@ -541,27 +546,28 @@ function startElectron(electronArgs: Array<string>, env: any) {
   // 监听错误诶之
   electronProcess.stderr.on('data', (data) => {
     data = data.toString();
-    if (
-      // 排除打开开发者工具栏,鼠标点击会出发警告信息
-      data.indexOf('NSPopoverTouchBarItemButton') !== -1 ||
-      // 排除加载react开发者工具会出现的警告信息
-      data.indexOf('minimum_chrome_version') !== -1
-    )
-      return;
+
+    const {
+      isLogProcess = (data: any) => {
+        return true;
+      },
+    } = api.config.electronBuilder as ElectronBuilder;
+
+    if (!isLogProcess(data)) return;
 
     let color = chalk.redBright;
 
     if (data.indexOf('Debugger listening on ws') !== -1) {
       color = chalk.greenBright;
     }
-    logProcess('Electron', data, color);
+    logProcess('Electron', data.toString(), color);
   });
 
   electronProcess.on('close', (exitCode) => {
     debug(`Electron exited with exit code ${exitCode}`);
     if (exitCode === 100) {
       setImmediate(() => {
-        startElectron(electronArgs, env);
+        startElectron(api, electronArgs, env);
       });
     } else {
       (process as any).emit('message', 'shutdown');
