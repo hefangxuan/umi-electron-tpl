@@ -3,6 +3,7 @@
  */
 
 export const isDevelopment = process.env.NODE_ENV === 'development';
+
 /**
  * url参数查询
  * @param {string} [url=location.search] - url地址
@@ -150,20 +151,6 @@ export const filterNull = (obj: Record<string, any>) => {
   });
   return o;
 };
-
-// 获取直播间连接地址函数
-export function getLiveHostAndPort(arr: string[]) {
-  let sArr = ['103.102.201.82', 14000];
-  const hostPort14000 = arr.find((i) => i.indexOf('14000') !== -1);
-  if (!hostPort14000) {
-    const [hostPort] = arr;
-    sArr = hostPort.split(':');
-  } else {
-    sArr = hostPort14000.split(':');
-  }
-
-  return sArr;
-}
 
 // 计算long类型值
 export function sumLongValue(a: any) {
