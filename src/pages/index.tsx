@@ -3,6 +3,9 @@ import './index.less';
 
 import MyLottie from '@/components/MyLottie';
 import { appName } from '../../electronBuilader';
+import { globalConfig } from '@/store';
+
+import { ipcRenderer } from 'electron';
 
 // import data from '@/assets/lf20_mdbdc5l7.json';
 
