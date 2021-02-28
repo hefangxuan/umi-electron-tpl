@@ -6,7 +6,8 @@ import isDevEnv from 'electron-is-dev';
 import { createWindow } from './mainWindow';
 
 const gotTheLock = app.requestSingleInstanceLock();
-if (!gotTheLock) {
+// 约定只有非开发环境才退出app
+if (!gotTheLock && !isDevEnv) {
   app.quit();
 }
 

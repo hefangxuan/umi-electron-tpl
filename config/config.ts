@@ -21,6 +21,14 @@ export default defineConfig({
     loading: '@/components/Loading',
   },
 
+  targets: {
+    chrome: 79,
+    firefox: false,
+    safari: false,
+    edge: false,
+    ios: false,
+  },
+
   copy: [
     {
       from: 'files',
@@ -41,14 +49,14 @@ export default defineConfig({
     '@primary-color': 'rgba(249, 163, 42, 1.000)',
     '@link-color': 'rgba(249, 163, 42, 1.000)',
     '@font-family': 'Arial, Helvetica, sans-serif',
-    '@line-height-base': '1.3',
+    // '@line-height-base': '1.3',
     '@border-radius-base': '6px',
-    '@font-size-base': '12px',
+    '@font-size-base': '14px',
   },
-  antd: {
-    // dark: true, // 开启暗色主题
-    compact: true, // 开启紧凑主题
-  },
+  // antd: {
+  //   // dark: true, // 开启暗色主题
+  //   compact: true, // 开启紧凑主题
+  // },
   // 路径别名
   alias: {
     '@': resolvePath('src'),
