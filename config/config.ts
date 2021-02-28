@@ -5,7 +5,12 @@ import path from 'path';
 
 const resolvePath = (dir: string) => path.join(__dirname, '../', dir);
 
+const chainWebpack = ({ target }: any) => {
+  return target('electron-renderer');
+};
+
 export default defineConfig({
+  // chainWebpack,
   devtool: 'eval',
   electronBuilder,
   title: appName,

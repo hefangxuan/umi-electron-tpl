@@ -1,9 +1,10 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
 import isDevEnv from 'electron-is-dev';
 import { createWindow } from './mainWindow';
+import { globalConfig } from '../store';
 
 const gotTheLock = app.requestSingleInstanceLock();
 // 约定只有非开发环境才退出app
@@ -22,6 +23,13 @@ if (isDevEnv) {
   const dotenv = require('dotenv');
   dotenv.config();
 }
+
+// =====================创建监听通讯 IPC 开始====================== //
+// 关闭启动loading层, 移除loading view视图
+ipcMain.on('logAppName', () => {
+  console.log(globalConfig.get('appName.a'));
+});
+// =====================创建监听通讯 IPC 结束====================== //
 
 // 控制窗口数量
 app.on('second-instance', (event, commandLine, workingDirectory) => {
