@@ -28,7 +28,6 @@
     ]
   },
   "dependencies": {
-    "conf": "^9.0.2",
     "electron-store": "^7.0.2",
     "react-lottie": "^1.2.3"
   },
