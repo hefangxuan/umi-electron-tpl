@@ -10,7 +10,7 @@ const chainWebpack = ({ target }: any) => {
 };
 
 export default defineConfig({
-  // chainWebpack,
+  chainWebpack,
   devtool: 'eval',
   electronBuilder,
   title: appName,
