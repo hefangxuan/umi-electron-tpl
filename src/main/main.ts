@@ -4,7 +4,7 @@ import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-insta
 
 import isDevEnv from 'electron-is-dev';
 import { createWindow } from './mainWindow';
-import { globalConfig } from '../store';
+import { globalConfig } from '../common/store';
 
 const gotTheLock = app.requestSingleInstanceLock();
 // 约定只有非开发环境才退出app

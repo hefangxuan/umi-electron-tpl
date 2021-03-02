@@ -29,6 +29,8 @@
   },
   "dependencies": {
     "electron-store": "^7.0.2",
+    "mobx": "^6.1.8",
+    "mobx-react": "^7.1.0",
     "react-lottie": "^1.2.3"
   },
   "devDependencies": {

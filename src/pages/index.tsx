@@ -3,10 +3,15 @@ import './index.less';
 
 import MyLottie from '@/components/MyLottie';
 import { appName } from '../../electronBuilader';
+import { observer } from 'mobx-react';
+import { useStore } from '@/stores';
 
 // import data from '@/assets/lf20_mdbdc5l7.json';
 
-export default function IndexPage() {
+function IndexPage(): JSX.Element {
+  // 测试mobx
+  const { test } = useStore();
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -35,7 +40,11 @@ export default function IndexPage() {
             <div id="flash-b">{appName}</div>
           </div>
         </div>
+        <div className="text-red">{test?.title}</div>
+        <button onClick={() => test.setTitle('niasdh' + Math.random())}>测试</button>
       </div>
     </div>
   );
 }
+
+export default observer(IndexPage);

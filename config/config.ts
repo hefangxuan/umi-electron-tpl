@@ -5,8 +5,19 @@ import path from 'path';
 
 const resolvePath = (dir: string) => path.join(__dirname, '../', dir);
 
-const chainWebpack = ({ target }: any) => {
-  return target('electron-renderer');
+const chainWebpack = (memo: any) => {
+  // return target('electron-renderer');
+  // 设置 alias
+  memo.target = 'electron-renderer';
+
+  // 删除 umi 内置插件
+  memo.plugins.delete('dva');
+  memo.plugins.delete('model');
+  memo.plugins.delete('request');
+  memo.plugins.delete('sass');
+  memo.plugins.delete('layout');
+  memo.plugins.delete('initial-state');
+  memo.plugins.delete('esbuild');
 };
 
 export default defineConfig({

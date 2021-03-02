@@ -5,6 +5,8 @@
 import React from 'react';
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
+import { Provider } from 'mobx-react';
+import { store } from '@/stores/config';
 
 // 覆写 render
 export async function render(oldRender: () => void) {
@@ -13,11 +15,9 @@ export async function render(oldRender: () => void) {
 
 // 修改交给 react-dom 渲染时的根组件
 export function rootContainer(container: React.ReactDOM) {
-  return React.createElement(
-    ConfigProvider,
-    {
-      locale: zhCN,
-    },
-    container,
+  return (
+    <ConfigProvider locale={zhCN}>
+      <Provider {...store}>{container}</Provider>
+    </ConfigProvider>
   );
 }
