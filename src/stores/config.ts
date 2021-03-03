@@ -1,8 +1,10 @@
 import test from './test';
+import { loadingStore } from '@/stores/loading';
 
 function createStore() {
   return {
     test,
+    loading: loadingStore,
   };
 }
 
