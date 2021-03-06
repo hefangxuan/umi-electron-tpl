@@ -2,17 +2,11 @@
  * electron窗口初始化
  */
 
-import { BrowserWindow, protocol, screen } from 'electron';
+import { BrowserWindow, screen } from 'electron';
 
 import isDevEnv from 'electron-is-dev';
 import * as path from 'path';
 import { appName } from '../../electronBuilader';
-import createProtocol from '../../lib/umi-plugin-electron-builder/createProtocol';
-
-// 自定义协议,主窗口
-protocol.registerSchemesAsPrivileged([
-  { scheme: 'app', privileges: { secure: true, standard: true } },
-]);
 
 export default class AppMainWindow {
   private mainWindow: any;
@@ -90,8 +84,7 @@ export default class AppMainWindow {
     if (isDevEnv) {
       this.mainWindow.loadURL(`http://localhost:${process.env.PORT}`).then();
     } else {
-      createProtocol('app');
-      this.mainWindow.loadURL('app://./index.html').then();
+      this.mainWindow.loadURL(`file://${path.join(__dirname, 'index.html')}`).then();
     }
 
     // 监听主窗口完成
