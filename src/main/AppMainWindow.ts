@@ -51,6 +51,10 @@ export default class AppMainWindow {
         .loadURL(`file://${path.join(__dirname, 'files/loading/loading.html')}`)
         .catch((e: any) => console.log('加载文件错误: ', e));
     }
+    this.motionWindow.on('closed', () => {
+      console.log('loading, 窗口关闭');
+      if (this.motionWindow) this.motionWindow = null;
+    });
   }
 
   createWindow() {
@@ -91,18 +95,17 @@ export default class AppMainWindow {
     }
 
     // 监听主窗口完成
-    this.mainWindow.webContents.on('did-finish-load', () => {
+    this.mainWindow.on('ready-to-show', () => {
       // this.mainWindow.setOpacity(0);
       setTimeout(() => {
         // this.mainWindow.setOpacity(1);
         if (this.motionWindow) {
           // this.motionWindow.setOpacity(0);
           this.motionWindow.close();
-          this.motionWindow.destroy();
-          this.motionWindow = null;
+          this.motionWindow?.destroy();
         }
         this.mainWindow.show();
-      }, 100);
+      }, 1000);
     });
   }
 
