@@ -9,7 +9,11 @@ export type TestType = {
 
 class Test {
   constructor() {
+    // 需要装饰器
     makeObservable(this);
+
+    // 不需要装饰器
+    // makeAutoObservable(this);
   }
 
   @observable title: string = '你好';

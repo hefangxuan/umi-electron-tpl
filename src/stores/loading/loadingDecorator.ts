@@ -20,15 +20,15 @@ function lowerCaseFirst(str: any) {
  * @returns {function(): *}
  */
 function executeAction(names: any, func: any, scope: any) {
-  return () => {
+  return (...args: any) => {
     const [model, action] = names;
 
     loadingStore.change(model, action, true);
 
     //
     // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-invalid-this,prefer-rest-params
-    const promise = func.apply(scope || this, arguments);
+    // eslint-disable-next-line @typescript-eslint/no-invalid-this
+    const promise = func.apply(scope || this, args);
 
     // hope is a promise object
     if (typeof promise === 'object' && typeof promise.finally === 'function') {
@@ -125,6 +125,7 @@ function fieldActionDecorator(name: any) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       set(value: any) {
         // 待实现
+        return value;
       },
     });
   };

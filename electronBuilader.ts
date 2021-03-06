@@ -2,7 +2,7 @@ import type { Configuration } from 'webpack';
 
 import { resolve } from 'path';
 
-// const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
 const { appName, version: appVersion, appId } = require('./package.json');
 
@@ -17,7 +17,7 @@ export const electronBuilder = {
   outputDir: 'release',
 
   // 不配置的无法使用
-  externals: [],
+  externals: ['electron-store'],
 
   // 构建目标electron-renderer或web
   rendererTarget: 'electron-renderer',
@@ -25,10 +25,13 @@ export const electronBuilder = {
   // 主进程webpack配置
   mainWebpackConfig(config: Configuration) {
     // eslint-disable-next-line no-param-reassign
-    // config.mode = env;
+    config.mode = env;
+    // eslint-disable-next-line no-param-reassign
     config.node = { __dirname: false, __filename: false };
     // eslint-disable-next-line no-param-reassign
-    // config.devtool = env === 'production' ? undefined : 'source-map';
+    config.devtool = env === 'development' ? undefined : 'cheap-module-source-map';
+    // eslint-disable-next-line no-param-reassign
+    config.target = 'electron-main';
     // eslint-disable-next-line no-param-reassign
     config.resolve!.alias = {
       '@main': resolve(__dirname, 'src/main'),
