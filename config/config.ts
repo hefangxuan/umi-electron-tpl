@@ -5,10 +5,12 @@ import path from 'path';
 
 const resolvePath = (dir: string) => path.join(__dirname, '../', dir);
 
+const env = process.env.NODE_ENV === 'development';
+
 const chainWebpack = (memo: any) => {
   // return target('electron-renderer');
   // 设置 alias
-  memo.target = 'electron-renderer';
+  // memo.target = 'electron-renderer';
 
   // 删除 umi 内置插件
   memo.plugins.delete('dva');
@@ -17,12 +19,12 @@ const chainWebpack = (memo: any) => {
   memo.plugins.delete('sass');
   memo.plugins.delete('layout');
   memo.plugins.delete('initial-state');
-  memo.plugins.delete('esbuild');
 };
 
 export default defineConfig({
+  esbuild: {},
   chainWebpack,
-  devtool: 'eval',
+  devtool: env ? 'cheap-module-source-map' : false,
   electronBuilder,
   title: appName,
   nodeModulesTransform: {

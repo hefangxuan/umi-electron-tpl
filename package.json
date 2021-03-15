@@ -28,6 +28,7 @@
     ]
   },
   "dependencies": {
+    "@umijs/plugin-esbuild": "^1.1.0",
     "electron-store": "^7.0.2",
     "mobx": "^6.1.8",
     "mobx-react": "^7.1.0",

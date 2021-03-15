@@ -25,13 +25,13 @@ export const electronBuilder = {
   // 主进程webpack配置
   mainWebpackConfig(config: Configuration) {
     // eslint-disable-next-line no-param-reassign
-    config.mode = env;
+    // config.mode = env;
     // eslint-disable-next-line no-param-reassign
     config.node = { __dirname: false, __filename: false };
     // eslint-disable-next-line no-param-reassign
-    config.devtool = env === 'development' ? undefined : 'cheap-module-source-map';
+    config.devtool = env === 'development' ? 'cheap-module-source-map' : false;
     // eslint-disable-next-line no-param-reassign
-    config.target = 'electron-main';
+    // config.target = 'electron-main';
     // eslint-disable-next-line no-param-reassign
     config.resolve!.alias = {
       '@main': resolve(__dirname, 'src/main'),
